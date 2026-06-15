@@ -113,54 +113,222 @@ function roundVal(num, decimals = 4) {
 
 // Generate tasks with clean random numbers
 function generateAllTasks() {
-  // Reset selected arrays for chips
-  state.task8.ineq8a.selected = [];
-  state.task8.ineq8b.selected = [];
+  // Reset scores
+  for (const key in state.scores) {
+    state.scores[key] = 0;
+  }
 
   // Task 1: Addition & Subtraction of decimals
-  // We want clean values to avoid strange fractions
-  const t1Data = [
-    { a: 3.6, b: 0.8, op: "+", ans: 4.4 },
-    { a: 6.4, b: 0.9, op: "-", ans: 5.5 },
-    { a: 4.25, b: 0.6, op: "+", ans: 4.85 },
-    { a: 0.85, b: 0.34, op: "-", ans: 0.51 },
-    { a: 0.606, b: 0.394, op: "+", ans: 1 },
-    { a: 7.02, b: 0.5, op: "-", ans: 6.52 },
-    { a: 0.73, b: 0.7, op: "+", ans: 1.43 },
-    { a: 4.308, b: 2.2, op: "-", ans: 2.108 }
-  ];
-  state.task1 = t1Data.map(d => ({...d, user: ""}));
+  state.task1 = [];
+  // 1. a.b + 0.c
+  let t1_a1 = roundVal(Math.floor(Math.random() * 40 + 10) / 10);
+  let t1_b1 = roundVal(Math.floor(Math.random() * 8 + 2) / 10);
+  state.task1.push({ a: t1_a1, b: t1_b1, op: "+", ans: roundVal(t1_a1 + t1_b1) });
+  // 2. a.b - 0.c
+  let t1_a2 = roundVal(Math.floor(Math.random() * 50 + 50) / 10);
+  let t1_b2 = roundVal(Math.floor(Math.random() * 8 + 2) / 10);
+  state.task1.push({ a: t1_a2, b: t1_b2, op: "-", ans: roundVal(t1_a2 - t1_b2) });
+  // 3. a.bc + 0.d
+  let t1_a3 = roundVal(Math.floor(Math.random() * 300 + 100) / 100);
+  let t1_b3 = roundVal(Math.floor(Math.random() * 8 + 2) / 10);
+  state.task1.push({ a: t1_a3, b: t1_b3, op: "+", ans: roundVal(t1_a3 + t1_b3) });
+  // 4. 0.ab - 0.cd
+  let t1_a4 = roundVal(Math.floor(Math.random() * 40 + 50) / 100);
+  let t1_b4 = roundVal(Math.floor(Math.random() * 30 + 10) / 100);
+  state.task1.push({ a: t1_a4, b: t1_b4, op: "-", ans: roundVal(t1_a4 - t1_b4) });
+  // 5. 0.abc + 0.def
+  let t1_a5 = roundVal(Math.floor(Math.random() * 500 + 200) / 1000);
+  let t1_b5 = roundVal(Math.floor(Math.random() * 200 + 200) / 1000);
+  state.task1.push({ a: t1_a5, b: t1_b5, op: "+", ans: roundVal(t1_a5 + t1_b5) });
+  // 6. a.0b - 0.c
+  let t1_a6 = roundVal((Math.floor(Math.random() * 5 + 2) * 100 + Math.floor(Math.random() * 9 + 1)) / 100);
+  let t1_b6 = roundVal(Math.floor(Math.random() * 8 + 2) / 10);
+  state.task1.push({ a: t1_a6, b: t1_b6, op: "-", ans: roundVal(t1_a6 - t1_b6) });
+  // 7. 0.ab + 0.c
+  let t1_a7 = roundVal(Math.floor(Math.random() * 50 + 40) / 100);
+  let t1_b7 = roundVal(Math.floor(Math.random() * 8 + 2) / 10);
+  state.task1.push({ a: t1_a7, b: t1_b7, op: "+", ans: roundVal(t1_a7 + t1_b7) });
+  // 8. a.bcd - b.c
+  let t1_a8 = roundVal(Math.floor(Math.random() * 3000 + 2000) / 1000);
+  let t1_b8 = roundVal(Math.floor(Math.random() * 15 + 10) / 10);
+  state.task1.push({ a: t1_a8, b: t1_b8, op: "-", ans: roundVal(t1_a8 - t1_b8) });
 
   // Task 2: Multiplications and divisions with 10, 100, 1000
-  const t2Data = [
-    { a: 10, b: 0.007, op: "*", ans: 0.07, sign: "·" },
-    { a: 4, b: 10, op: "/", ans: 0.4, sign: ":" },
-    { a: 100, b: 0.08, op: "*", ans: 8, sign: "·" },
-    { a: 7, b: 100, op: "/", ans: 0.07, sign: ":" },
-    { a: 100, b: 0.6, op: "*", ans: 60, sign: "·" },
-    { a: 8.3, b: 10, op: "/", ans: 0.83, sign: ":" },
-    { a: 1000, b: 0.04, op: "*", ans: 40, sign: "·" },
-    { a: 2.5, b: 1000, op: "/", ans: 0.0025, sign: ":" }
-  ];
-  state.task2 = t2Data.map(d => ({...d, user: ""}));
+  state.task2 = [];
+  // 1. 10 * 0.00c
+  let t2_c1 = Math.floor(Math.random() * 8 + 2);
+  state.task2.push({ a: 10, b: roundVal(t2_c1 / 1000), op: "*", ans: roundVal(10 * (t2_c1 / 1000)), sign: "·" });
+  // 2. a : 10
+  let t2_c2 = Math.floor(Math.random() * 8 + 2);
+  state.task2.push({ a: t2_c2, b: 10, op: "/", ans: roundVal(t2_c2 / 10), sign: ":" });
+  // 3. 100 * 0.0c
+  let t2_c3 = Math.floor(Math.random() * 8 + 2);
+  state.task2.push({ a: 100, b: roundVal(t2_c3 / 100), op: "*", ans: roundVal(100 * (t2_c3 / 100)), sign: "·" });
+  // 4. a : 100
+  let t2_c4 = Math.floor(Math.random() * 8 + 2);
+  state.task2.push({ a: t2_c4, b: 100, op: "/", ans: roundVal(t2_c4 / 100), sign: ":" });
+  // 5. 100 * 0.c
+  let t2_c5 = Math.floor(Math.random() * 8 + 2);
+  state.task2.push({ a: 100, b: roundVal(t2_c5 / 10), op: "*", ans: roundVal(100 * (t2_c5 / 10)), sign: "·" });
+  // 6. a.b : 10
+  let t2_c6_a = Math.floor(Math.random() * 8 + 2);
+  let t2_c6_b = Math.floor(Math.random() * 8 + 2);
+  let t2_num6 = roundVal(t2_c6_a + t2_c6_b / 10);
+  state.task2.push({ a: t2_num6, b: 10, op: "/", ans: roundVal(t2_num6 / 10), sign: ":" });
+  // 7. 1000 * 0.0c
+  let t2_c7 = Math.floor(Math.random() * 8 + 2);
+  state.task2.push({ a: 1000, b: roundVal(t2_c7 / 100), op: "*", ans: roundVal(1000 * (t2_c7 / 100)), sign: "·" });
+  // 8. a.b : 1000
+  let t2_c8_a = Math.floor(Math.random() * 8 + 2);
+  let t2_c8_b = Math.floor(Math.random() * 8 + 2);
+  let t2_num8 = roundVal(t2_c8_a + t2_c8_b / 10);
+  state.task2.push({ a: t2_num8, b: 1000, op: "/", ans: roundVal(t2_num8 / 1000), sign: ":" });
 
   // Task 3: Multiplication with factors of multiples of 10 or 100
-  const t3Data = [
-    { a: 4, b: 0.08, ans: 0.32 },
-    { a: 80, b: 0.03, ans: 2.4 },
-    { a: 7, b: 0.6, ans: 4.2 },
-    { a: 400, b: 0.06, ans: 24 }
-  ];
-  state.task3 = t3Data.map(d => ({...d, user: ""}));
+  state.task3 = [];
+  let t3_a1 = Math.floor(Math.random() * 6 + 3);
+  let t3_b1 = Math.floor(Math.random() * 8 + 2) / 100;
+  state.task3.push({ a: t3_a1, b: roundVal(t3_b1), ans: roundVal(t3_a1 * t3_b1) });
+  let t3_a2 = Math.floor(Math.random() * 8 + 2) * 10;
+  let t3_b2 = Math.floor(Math.random() * 8 + 2) / 100;
+  state.task3.push({ a: t3_a2, b: roundVal(t3_b2), ans: roundVal(t3_a2 * t3_b2) });
+  let t3_a3 = Math.floor(Math.random() * 6 + 3);
+  let t3_b3 = Math.floor(Math.random() * 8 + 2) / 10;
+  state.task3.push({ a: t3_a3, b: roundVal(t3_b3), ans: roundVal(t3_a3 * t3_b3) });
+  let t3_a4 = Math.floor(Math.random() * 6 + 2) * 100;
+  let t3_b4 = Math.floor(Math.random() * 8 + 2) / 100;
+  state.task3.push({ a: t3_a4, b: roundVal(t3_b4), ans: roundVal(t3_a4 * t3_b4) });
 
   // Task 4: Division of decimals with multiples of 10 or 100
-  const t4Data = [
-    { a: 1.8, b: 6, ans: 0.3 },
-    { a: 3.6, b: 40, ans: 0.09 },
-    { a: 0.35, b: 7, ans: 0.05 },
-    { a: 18, b: 60, ans: 0.3 }
+  state.task4 = [];
+  let t4_c1 = Math.floor(Math.random() * 5 + 3);
+  let t4_ans1 = Math.floor(Math.random() * 5 + 2) / 10;
+  state.task4.push({ a: roundVal(t4_c1 * t4_ans1), b: t4_c1, ans: t4_ans1 });
+  let t4_c2_base = Math.floor(Math.random() * 4 + 2);
+  let t4_c2 = t4_c2_base * 10;
+  let t4_ans2 = Math.floor(Math.random() * 7 + 2) / 100;
+  state.task4.push({ a: roundVal(t4_c2 * t4_ans2), b: t4_c2, ans: t4_ans2 });
+  let t4_c3 = Math.floor(Math.random() * 5 + 4);
+  let t4_ans3 = Math.floor(Math.random() * 7 + 2) / 100;
+  state.task4.push({ a: roundVal(t4_c3 * t4_ans3), b: t4_c3, ans: t4_ans3 });
+  let t4_c4_base = Math.floor(Math.random() * 4 + 3);
+  let t4_c4 = t4_c4_base * 10;
+  let t4_ans4 = Math.floor(Math.random() * 6 + 2) / 10;
+  state.task4.push({ a: roundVal(t4_c4 * t4_ans4), b: t4_c4, ans: t4_ans4 });
+
+  // Task 6: Brackets
+  const eq6aList = [
+    { text: "5 + 4 * 40 = 360", choices: ["(5 + 4) * 40 = 360", "5 + (4 * 40) = 360", "5 + 4 * 40 = 360"], answer: "(5 + 4) * 40 = 360" },
+    { text: "6 + 3 * 30 = 270", choices: ["(6 + 3) * 30 = 270", "6 + (3 * 30) = 270", "6 + 3 * 30 = 270"], answer: "(6 + 3) * 30 = 270" },
+    { text: "7 + 2 * 50 = 450", choices: ["(7 + 2) * 50 = 450", "7 + (2 * 50) = 450", "7 + 2 * 50 = 450"], answer: "(7 + 2) * 50 = 450" }
   ];
-  state.task4 = t4Data.map(d => ({...d, user: ""}));
+  const eq6bList = [
+    { text: "480 - 400 + 80 = 0", choices: ["(480 - 400) + 80 = 0", "480 - (400 + 80) = 0", "480 - 400 + 80 = 0"], answer: "480 - (400 + 80) = 0" },
+    { text: "650 - 500 + 150 = 0", choices: ["(650 - 500) + 150 = 0", "650 - (500 + 150) = 0", "650 - 500 + 150 = 0"], answer: "650 - (500 + 150) = 0" },
+    { text: "720 - 600 + 120 = 0", choices: ["(720 - 600) + 120 = 0", "720 - (600 + 120) = 0", "720 - 600 + 120 = 0"], answer: "720 - (600 + 120) = 0" }
+  ];
+  state.task6.eq6a = eq6aList[Math.floor(Math.random() * eq6aList.length)];
+  state.task6.eq6b = eq6bList[Math.floor(Math.random() * eq6bList.length)];
+
+  // Task 7: Missing number
+  let t7_ansA = Math.floor(Math.random() * 25 + 10) * 10;
+  let t7_B = Math.floor(Math.random() * 7 + 3) * 10;
+  let t7_C = Math.floor(Math.random() * 11 + 5) * 10;
+  let t7_A = t7_C + t7_ansA + t7_B;
+  state.task7.eq7a = { prompt: `${t7_A} - ( ? + ${t7_B} ) = ${t7_C}`, ans: t7_ansA };
+
+  let t7_B_b = Math.floor(Math.random() * 3 + 2) * 10;
+  let t7_C_b = Math.floor(Math.random() * 15 + 20);
+  let t7_total = t7_B_b * t7_C_b;
+  let t7_A_b = Math.floor(Math.random() * 4 + 2) * 50;
+  state.task7.eq7b = { prompt: `( ${t7_A_b} + ? ) : ${t7_B_b} = ${t7_C_b}`, ans: t7_total - t7_A_b };
+
+  // Task 8: Inequality chips
+  let t8_A = Math.floor(Math.random() * 10 + 20) * 10;
+  let t8_limitA = Math.floor(Math.random() * 10 + 15) * 10;
+  let t8_B = t8_A + t8_limitA;
+  let t8_correctCandidates = [Math.floor(t8_limitA * 0.2), Math.floor(t8_limitA * 0.5), t8_limitA - 5 - Math.floor(Math.random() * 20)];
+  let t8_incorrectCandidates = [t8_limitA, t8_limitA + 5 + Math.floor(Math.random() * 20), t8_limitA + 50 + Math.floor(Math.random() * 50)];
+  let t8_candidatesA = [...t8_correctCandidates, ...t8_incorrectCandidates].map(Math.round);
+  t8_candidatesA = Array.from(new Set(t8_candidatesA)).sort((x, y) => x - y);
+  state.task8.ineq8a = { left: t8_A, target: t8_B, op: '<', candidates: t8_candidatesA, answers: t8_candidatesA.filter(n => n < t8_limitA), selected: [] };
+
+  let t8_divisor = Math.floor(Math.random() * 3 + 3);
+  let t8_target = Math.floor(Math.random() * 6 + 18);
+  let t8_limitB = t8_divisor * t8_target;
+  let t8_candidatesB = [t8_limitB - 20, t8_limitB - 4, t8_limitB, t8_limitB + 4, t8_limitB + 10, t8_limitB + 40, t8_limitB + 100].map(Math.round);
+  t8_candidatesB = Array.from(new Set(t8_candidatesB)).sort((x, y) => x - y);
+  state.task8.ineq8b = { divisor: t8_divisor, target: t8_target, op: '>', candidates: t8_candidatesB, answers: t8_candidatesB.filter(n => n > t8_limitB), selected: [] };
+
+  // Task 9: Proportionality
+  const t9_itemsA = ["Ananas", "Melonen", "Mangos", "Avocados"];
+  const t9_itemA = t9_itemsA[Math.floor(Math.random() * t9_itemsA.length)];
+  let t9_qty1_a = Math.floor(Math.random() * 3 + 3);
+  let t9_unitPrice_a = roundVal(Math.floor(Math.random() * 5 + 10) * 0.2);
+  let t9_qty3_a = t9_qty1_a - 1;
+  if (t9_qty3_a < 2) t9_qty3_a = 2;
+  state.task9.a = { item: t9_itemA, qty1: t9_qty1_a, price1: roundVal(t9_qty1_a * t9_unitPrice_a), qty2: 1, price2: t9_unitPrice_a, qty3: t9_qty3_a, price3: roundVal(t9_qty3_a * t9_unitPrice_a) };
+
+  const t9_itemsB = ["Mehl", "Zucker", "Kaffee", "Reis"];
+  const t9_itemB = t9_itemsB[Math.floor(Math.random() * t9_itemsB.length)];
+  let t9_qty1_b = Math.floor(Math.random() * 3 + 4) * 2;
+  let t9_unitPrice_b = roundVal(Math.floor(Math.random() * 5 + 10) * 0.2);
+  let t9_qty3_b = [1.5, 2.5, 3.5][Math.floor(Math.random() * 3)];
+  state.task9.b = { item: t9_itemB, qty1: t9_qty1_b, price1: roundVal(t9_qty1_b * t9_unitPrice_b), qty2: 1, price2: t9_unitPrice_b, qty3: t9_qty3_b, price3: roundVal(t9_qty3_b * t9_unitPrice_b) };
+
+  // Task 10: Advanced equations
+  let t10_B = Math.floor(Math.random() * 5 + 2) * 50;
+  let t10_C = Math.floor(Math.random() * 3 + 4);
+  let t10_D_minus_A = Math.floor(Math.random() * 3 + 2) * 50;
+  let t10_A = Math.floor(Math.random() * 4 + 3) * 50;
+  let t10_D = t10_A + t10_D_minus_A;
+  let t10_ansA = t10_B + (t10_D_minus_A * t10_C);
+  state.task10.eq10a = { prompt: `${t10_A} + ( ( ? - ${t10_B} ) : ${t10_C} ) = ${t10_D}`, ans: t10_ansA };
+
+  let t10_C_b = Math.floor(Math.random() * 6 + 20) * 100;
+  let t10_C_minus_ans = Math.floor(Math.random() * 6 + 8) * 100;
+  let t10_ansB = t10_C_b - t10_C_minus_ans;
+  let t10_B_b = Math.floor(Math.random() * 10 + 40) * 100;
+  let t10_inner = t10_B_b - t10_C_minus_ans;
+  let t10_A_b = Math.floor(Math.random() * 10 + 80) * 100;
+  let t10_D_b = t10_A_b - t10_inner;
+  state.task10.eq10b = { prompt: `${t10_A_b} - ( ${t10_B_b} - ( ${t10_C_b} - ? ) ) = ${t10_D_b}`, ans: t10_ansB };
+
+  // Task 11: Nested brackets
+  const t11List = [
+    [
+      { expr: "5 + ( ( ( 3 * ( 2 + 1 ) ) + 1 ) * 2 )", ans: 25 },
+      { expr: "( ( ( 4 + ( 3 - 1 ) ) * 3 ) - ( 5 * ( 4 - 2 ) ) )", ans: 8 }
+    ],
+    [
+      { expr: "4 + ( ( ( 2 * ( 3 + 2 ) ) + 3 ) * 3 )", ans: 43 },
+      { expr: "( ( ( 5 + ( 4 - 2 ) ) * 2 ) - ( 4 * ( 5 - 3 ) ) )", ans: 6 }
+    ],
+    [
+      { expr: "6 + ( ( ( 4 * ( 1 + 2 ) ) + 2 ) * 2 )", ans: 34 },
+      { expr: "( ( ( 3 + ( 5 - 2 ) ) * 4 ) - ( 6 * ( 4 - 1 ) ) )", ans: 6 }
+    ]
+  ];
+  state.task11 = t11List[Math.floor(Math.random() * t11List.length)];
+
+  // Task 12: Euro to CHF exchange
+  const t12_names = ["Frau Sommer", "Herr Müller", "Frau Keller", "Herr Federer"];
+  const t12_name = t12_names[Math.floor(Math.random() * t12_names.length)];
+  const t12_rates = [1.1, 1.15, 1.2, 1.25];
+  const t12_rate = t12_rates[Math.floor(Math.random() * t12_rates.length)];
+  const t12_rateText = `100 Euro entsprechen ${(t12_rate * 100).toFixed(0)} Franken`;
+  const t12_hotels = [400, 500, 600, 700];
+  const t12_reises = [120, 160, 200, 240];
+  const t12_essens = [200, 250, 300, 350];
+  const t12_hotelEur = t12_hotels[Math.floor(Math.random() * t12_hotels.length)];
+  const t12_reiseEur = t12_reises[Math.floor(Math.random() * t12_reises.length)];
+  const t12_essenEur = t12_essens[Math.floor(Math.random() * t12_essens.length)];
+  state.task12 = {
+    name: t12_name, rate: t12_rate, rateText: t12_rateText,
+    hotelEur: t12_hotelEur, hotelChf: roundVal(t12_hotelEur * t12_rate),
+    reiseEur: t12_reiseEur, reiseChf: roundVal(t12_reiseEur * t12_rate),
+    essenEur: t12_essenEur, essenChf: roundVal(t12_essenEur * t12_rate)
+  };
 
   // Render elements in DOM
   renderTask1();
@@ -170,8 +338,10 @@ function generateAllTasks() {
   renderTask6Choices();
   renderTask7Elements();
   renderTask8Chips();
+  renderTask9Inputs();
   renderTask10Elements();
   renderTask11Elements();
+  renderTask12Inputs();
   
   // Clear other user fields/feedback
   document.querySelectorAll("input").forEach(input => {
@@ -192,6 +362,30 @@ function generateAllTasks() {
   });
   
   updateDashboard();
+}
+
+function renderTask9Inputs() {
+  const ta = state.task9.a;
+  const tb = state.task9.b;
+  
+  document.getElementById("prop9a-desc").textContent = `a) ${ta.qty1} ${ta.item} kosten ${ta.price1.toFixed(2)} Fr. Wie viel kosten ${ta.qty3} ${ta.item}?`;
+  document.getElementById("p9a-q1").value = ta.qty1;
+  document.getElementById("p9a-p1").value = ta.price1.toFixed(2);
+  document.getElementById("p9a-q3").placeholder = ta.qty3;
+  
+  document.getElementById("prop9b-desc").textContent = `b) ${tb.qty1} kg ${tb.item} kosten ${tb.price1.toFixed(2)} Fr. Wie viel kosten ${tb.qty3} kg ${tb.item}?`;
+  document.getElementById("p9b-q1").value = tb.qty1;
+  document.getElementById("p9b-p1").value = tb.price1.toFixed(2);
+  document.getElementById("p9b-q3").placeholder = tb.qty3;
+}
+
+function renderTask12Inputs() {
+  const t12 = state.task12;
+  document.getElementById("prop12-desc").textContent = `${t12.name} war im Sommer eine Woche lang in Italien in den Ferien. Für das Hotel hat sie ${t12.hotelEur} Euro ausgegeben, für die Reise ${t12.reiseEur} Euro und für das Essen ${t12.essenEur} Euro. Berechne, wie viele Franken sie für ihre Ferien ausgegeben hat. Wechselkurs: ${t12.rateText}.`;
+  
+  document.getElementById("p12-val-hotel-eur").textContent = t12.hotelEur;
+  document.getElementById("p12-val-reise-eur").textContent = t12.reiseEur;
+  document.getElementById("p12-val-essen-eur").textContent = t12.essenEur;
 }
 
 // Reset everything
