@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prüfungsvorbereitung Mathematik LZK 5.9</title>
+  <meta name="description" content="Interaktive Prüfungsvorbereitung für die Mathematik-Lernkontrolle 5.9 (5. Klasse) mit zufälligen Zahlen." />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="glow-container">
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+  </div>
+
+  <header class="header">
+    <div class="header-content">
+      <div class="badge">Mathematik Klasse 5</div>
+      <h1>Interaktive Prüfungsvorbereitung <span class="accent-text">LZK 5.9</span></h1>
+      <p class="subtitle">Lerne und übe für die Lernkontrolle: Dezimalzahlen, Terme &amp; Gleichungen, Proportionalität. Klicke auf „Prüfen“, um deine Antworten direkt auszuwerten!</p>
+      
+      <div class="dashboard">
+        <div class="stat-card">
+          <span class="stat-label">Fortschritt</span>
+          <div class="progress-bar-container">
+            <div class="progress-bar" id="progressBar" style="width: 0%;"></div>
+          </div>
+          <span class="stat-value" id="progressText">0% gelöst</span>
+        </div>
+        <div class="stat-card score-card">
+          <span class="stat-label">Punkte</span>
+          <span class="stat-value" id="scoreDisplay">0 / 25 P.</span>
+        </div>
+        <div class="dashboard-actions">
+          <button class="btn btn-secondary" onclick="resetAllTasks()">Neue Zahlen generieren</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="navigation">
+    <button class="nav-tab active" data-target="lzk-basic">Grundanforderungen (19 P.)</button>
+    <button class="nav-tab" data-target="lzk-advanced">Erweiterte Anforderungen (6 P.)</button>
+  </nav>
+
+  <main class="container">
+    <!-- GRUNDANFORDERNUNGEN -->
+    <section id="lzk-basic" class="tab-content active">
+      <!-- Aufgabe 1 -->
+      <div class="card" id="card-1">
+        <div class="card-header">
+          <span class="task-number">Aufgabe 1</span>
+          <span class="points">2 Punkte</span>
+        </div>
+        <h3>Dezimalzahlen addieren und subtrahieren</h3>
+        <p class="task-desc">Berechne das Ergebnis im Kopf oder auf einem Notizblatt.</p>
+        <div class="grid-2-cols" id="task1-list">
+          <!-- Dynamic generated subtasks -->
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-primary" onclick="checkTask1()">Aufgabe 1 prüfen</button>
+          <div class="feedback" id="feedback-1"></div>
+        </div>
+      </div>
+
+      <!-- Aufgabe 2 -->
+      <div class="card" id="card-2">
+        <div class="card-header">
+          <span class="task-number">Aufgabe 2</span>
+          <span class="points">2 Punkte</span>
+        </div>
+        <h3>Multiplikation und Division mit 10, 100, 1000</h3>
+        <p class="task-desc">Verschiebe das Komma in die richtige Richtung.</p>
+        <div class="grid-2-cols" id="task2-list">
+          <!-- Dynamic generated subtasks -->
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-primary" onclick="checkTask2()">Aufgabe 2 prüfen</button>
+          <div class="feedback" id="feedback-2"></div>
+        </div>
+      </div>
+
+      <!-- Aufgabe 3 -->
+      <div class="card" id="card-3">
+        <div class="card-header">
+          <span class="task-number">Aufgabe 3</span>
+          <span class="points">2 Punkte</span>
+        </div>
+        <h3>Multiplikation mit Dezimalzahlen</h3>
+        <p class="task-desc">Der zweite Faktor ist ein Mehrfaches von 10 oder 100.</p>
+        <div class="grid-2-cols" id="task3-list">
+          <!-- Dynamic generated subtasks -->
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-primary" onclick="checkTask3()">Aufgabe 3 prüfen</button>
+          <div class="feedback" id="feedback-3"></div>
+        </div>
+      </div>
+
+      <!-- Aufgabe 4 -->
+      <div class="card" id="card-4">
+        <div class="card-header">
+          <span class="task-number">Aufgabe 4</span>
+          <span class="points">2 Punkte</span>
+        </div>
+        <h3>Division von Dezimalzahlen</h3>
+        <p class="task-desc">Der Divisor ist ein Mehrfaches von 10 oder 100.</p>
+        <div class="grid-2-cols" id="task4-list">
+          <!-- Dynamic generated subtasks -->
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-primary" onclick="checkTask4()">Aufgabe 4 prüfen</button>
+          <div class="feedback" id="feedback-4"></div>
+        </div>
+      </div>
+
+      <!-- Aufgabe 5 -->
+      <div class="card" id="card-5">
+        <div class="card-header">
+          <span class="task-number">Aufgabe 5</span>
+          <span class="points">1 Punkt</span>
+        </div>
+        <h3>Bedeutung der Vergleichszeichen</h3>
+        <p class="task-desc">Ordne jedem mathematischen Symbol die richtige Bedeutung zu.</p>
+        <div class="matching-container">
+          <div class="match-row">
+            <span class="symbol-box">&gt;</span>
+            <select id="match-gt" class="select-matching">
+              <option value="">-- Bedeutung wählen --</option>
+              <option value="gleich">gleich</option>
+              <option value="ungleich">ungleich</option>
+              <option value="groesser">grösser als</option>
+              <option value="kleiner">kleiner als</option>
+            </select>
+          </div>
+          <div class="match-row">
+            <span class="symbol-box">&lt;</span>
+            <select id="match-lt" class="select-matching">
+              <option value="">-- Bedeutung wählen --</option>
+              <option value="gleich">gleich</option>
+              <option value="ungleich">ungleich</option>
+              <option value="groesser">grösser als</option>
+              <option value="kleiner">kleiner als</option>
+            </select>
+          </div>
+          <div class="match-row">
+            <span class="symbol-box">=</span>
+            <select id="match-eq" class="select-matching">
+              <option value="">-- Bedeutung wählen --</option>
+              <option value="gleich">gleich</option>
+              <option value="ungleich">ungleich</option>
+              <option value="groesser">grösser als</option>
+              <option value="kleiner">kleiner als</option>
+            </select>
+          </div>
+          <div class="match-row">
+            <span class="symbol-box">≠</span>
+            <select id="match-neq" class="select-matching">
+              <option value="">-- Bedeutung wählen --</option>
+              <option value="gleich">gleich</option>
+              <option value="ungleich">ungleich</option>
+              <option value="groesser">grösser als</option>
+              <option value="kleiner">kleiner als</option>
+            </select>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-primary" onclick="checkTask5()">Aufgabe 5 prüfen</button>
+          <div class="feedback" id="feedback-5"></div>
+        </div>
+      </div>
+
+      <!-- Aufgabe 6 -->
+      <div class="card" id="card-6">
+        <div class="card-header">
+          <span class="task-number">Aufgabe 6</span>
+          <span class="points">1 Punkt</span>
+        </div>
+        <h3>Klammern setzen</h3>
+        <p class="task-desc">Klicke auf die richtige Position der Klammern, damit die Gleichungen stimmen.</p>
+        <div class="brackets-container">
+          <div class="bracket-row">
+            <span class="equation-label" id="eq6a-text">Gleichung 1:</span>
+            <select id="eq6a-select" class="select-brackets">
+              <!-- Dynamically populated choices -->
+            </select>
+          </div>
+          <div class="bracket-row">
+            <span class="equation-label" id="eq6b-text">Gleichung 2:</span>
+            <select id="eq6b-select" class="select-brackets">
+              <!-- Dynamically populated choices -->
+            </select>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-primary" onclick="checkTask6()">Aufgabe 6 prüfen</button>
+          <div class="feedback" id="feedback-6"></div>
+        </div>
+      </div>
+
+      <!-- Aufgabe 7 -->
+      <div class="card" id="card-7">
+        <div class="card-header">
+          <span class="task-number">Aufgabe 7</span>
+          <span class="points">2 Punkte</span>
+        </div>
+        <h3>Fehlende Zahl einsetzen</h3>
+        <p class="task-desc">Bestimme den Wert für die Lücke <span class="placeholder-box">?</span>, damit die Gleichung stimmt.</p>
+        <div class="grid-1-col">
+          <div class="equation-input-row" id="eq7a-container">
+            <!-- Dynamically populated -->
+          </div>
+          <div class="equation-input-row" id="eq7b-container">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-primary" onclick="checkTask7()">Aufgabe 7 prüfen</button>
+          <div class="feedback" id="feedback-7"></div>
+        </div>
+      </div>
+
+      <!-- Aufgabe 8 -->
+      <div class="card" id="card-8">
+        <div class="card-header">
+          <span class="task-number">Aufgabe 8</span>
+          <span class="points">2 Punkte</span>
+        </div>
+        <h3>Zahlen für Ungleichung wählen</h3>
+        <p class="task-desc">Wähle alle Zahlen aus der Auswahl aus, welche die jeweilige Ungleichung wahr machen (mehrere Antworten möglich).</p>
+        <div class="inequality-container">
+          <div class="ineq-section">
+            <h4 id="ineq8a-title">a) 310 + _ &lt; 540</h4>
+            <div class="number-chips-grid" id="ineq8a-chips">
+              <!-- Dynamic chips -->
+            </div>
+          </div>
+          <div class="ineq-section">
+            <h4 id="ineq8b-title">b) _ : 4 &gt; 20</h4>
+            <div class="number-chips-grid" id="ineq8b-chips">
+              <!-- Dynamic chips -->
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-primary" onclick="checkTask8()">Aufgabe 8 prüfen</button>
+          <div class="feedback" id="feedback-8"></div>
+        </div>
+      </div>
+
+      <!-- Aufgabe 9 -->
+      <div class="card" id="card-9">
+        <div class="card-header">
+          <span class="task-number">Aufgabe 9</span>
+          <span class="points">4 Punkte</span>
+        </div>
+        <h3>Direkte Proportionalität</h3>
+        <p class="task-desc">Trage die Zwischenschritte und Endergebnisse in die Tabelle ein.</p>
+        
+        <div class="prop-task">
+          <h4 id="prop9a-desc">a) 4 Ananas kosten 9.60 Fr. Wie viel kosten 3 Ananas?</h4>
+          <table class="prop-table">
+            <thead>
+              <tr>
+                <th>Menge (Stück)</th>
+                <th>Preis (CHF)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="number" id="p9a-q1" value="4" readonly class="input-readonly"></td>
+                <td><input type="number" step="0.01" id="p9a-p1" value="9.60" readonly class="input-readonly"></td>
+              </tr>
+              <tr>
+                <td><input type="number" id="p9a-q2" placeholder="1" step="any"></td>
+                <td><input type="number" step="0.01" id="p9a-p2" placeholder="CHF"></td>
+              </tr>
+              <tr>
+                <td><input type="number" id="p9a-q3" placeholder="3" step="any"></td>
+                <td><input type="number" step="0.01" id="p9a-p3" placeholder="CHF"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="prop-task">
+          <h4 id="prop9b-desc">b) 8 kg Mehl kosten 17.60 Fr. Wie viel kosten 2.5 kg Mehl?</h4>
+          <table class="prop-table">
+            <thead>
+              <tr>
+                <th>Menge (kg)</th>
+                <th>Preis (CHF)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="number" id="p9b-q1" value="8" readonly class="input-readonly"></td>
+                <td><input type="number" step="0.01" id="p9b-p1" value="17.60" readonly class="input-readonly"></td>
+              </tr>
+              <tr>
+                <td><input type="number" id="p9b-q2" placeholder="1" step="any"></td>
+                <td><input type="number" step="0.01" id="p9b-p2" placeholder="CHF"></td>
+              </tr>
+              <tr>
+                <td><input type="number" id="p9b-q3" placeholder="2.5" step="any"></td>
+                <td><input type="number" step="0.01" id="p9b-p3" placeholder="CHF"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card-footer">
+          <button class="btn btn-primary" onclick="checkTask9()">Aufgabe 9 prüfen</button>
+          <div class="feedback" id="feedback-9"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ERWEITERTE ANFORDERNUNGEN -->
+    <section id="lzk-advanced" class="tab-content">
+      <!-- Aufgabe 10 -->
+      <div class="card" id="card-10">
+        <div class="card-header">
+          <span class="task-number">Aufgabe 10</span>
+          <span class="points">2 Punkte</span>
+        </div>
+        <h3>Fehlende Zahl einsetzen (Schwierig)</h3>
+        <p class="task-desc">Löse die komplexeren Gleichungen nach der Lücke <span class="placeholder-box">?</span> auf.</p>
+        <div class="grid-1-col">
+          <div class="equation-input-row" id="eq10a-container">
+            <!-- Dynamically populated -->
+          </div>
+          <div class="equation-input-row" id="eq10b-container">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-primary" onclick="checkTask10()">Aufgabe 10 prüfen</button>
+          <div class="feedback" id="feedback-10"></div>
+        </div>
+      </div>
+
+      <!-- Aufgabe 11 -->
+      <div class="card" id="card-11">
+        <div class="card-header">
+          <span class="task-number">Aufgabe 11</span>
+          <span class="points">2 Punkte</span>
+        </div>
+        <h3>Gleichungen mit mehreren Klammern</h3>
+        <p class="task-desc">Berechne den genauen Termwert unter Beachtung der Klammerregeln (von innen nach aussen).</p>
+        <div class="grid-2-cols" id="task11-list">
+          <!-- Dynamically populated -->
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-primary" onclick="checkTask11()">Aufgabe 11 prüfen</button>
+          <div class="feedback" id="feedback-11"></div>
+        </div>
+      </div>
+
+      <!-- Aufgabe 12 -->
+      <div class="card" id="card-12">
+        <div class="card-header">
+          <span class="task-number">Aufgabe 12</span>
+          <span class="points">2 Punkte</span>
+        </div>
+        <h3>Proportionalität &amp; Währungsumrechnung</h3>
+        <p class="task-desc" id="prop12-desc">Frau Sommer war in Italien. Hotel: 600 Euro, Reise: 150 Euro, Essen: 250 Euro. Rechne um in CHF (Wechselkurs: 100 Euro = 110 CHF).</p>
+        
+        <table class="prop-table">
+          <thead>
+            <tr>
+              <th>Ausgabe</th>
+              <th>Wert in Euro (€)</th>
+              <th>Wert in Schweizer Franken (CHF)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Hotel</td>
+              <td><span id="p12-val-hotel-eur">600</span> €</td>
+              <td><input type="number" step="0.01" id="p12-val-hotel-chf" placeholder="CHF"></td>
+            </tr>
+            <tr>
+              <td>Reise</td>
+              <td><span id="p12-val-reise-eur">150</span> €</td>
+              <td><input type="number" step="0.01" id="p12-val-reise-chf" placeholder="CHF"></td>
+            </tr>
+            <tr>
+              <td>Essen</td>
+              <td><span id="p12-val-essen-eur">250</span> €</td>
+              <td><input type="number" step="0.01" id="p12-val-essen-chf" placeholder="CHF"></td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <div class="card-footer">
+          <button class="btn btn-primary" onclick="checkTask12()">Aufgabe 12 prüfen</button>
+          <div class="feedback" id="feedback-12"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Erstellt für das Fach Mathematik – 5. Klasse Rothrist | © 2026 Sascha Luscher</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
