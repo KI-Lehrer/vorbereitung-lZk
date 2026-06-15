@@ -87,6 +87,7 @@ const maxPoints = {
 document.addEventListener("DOMContentLoaded", () => {
   setupTabs();
   generateAllTasks();
+  initTheme();
 });
 
 // Setup tab navigation
@@ -104,6 +105,35 @@ function setupTabs() {
       document.getElementById(target).classList.add("active");
     });
   });
+}
+
+// Theme Toggle Logic
+window.toggleTheme = function() {
+  const body = document.body;
+  const btn = document.getElementById("themeToggleBtn");
+  if (body.classList.contains("light-mode")) {
+    body.classList.remove("light-mode");
+    if (btn) btn.innerHTML = "Heller Modus ☀️";
+    localStorage.setItem("theme", "dark");
+  } else {
+    body.classList.add("light-mode");
+    if (btn) btn.innerHTML = "Dunkler Modus 🌙";
+    localStorage.setItem("theme", "light");
+  }
+};
+
+// Check theme on load
+function initTheme() {
+  const savedTheme = localStorage.getItem("theme");
+  const body = document.body;
+  const btn = document.getElementById("themeToggleBtn");
+  if (savedTheme === "light") {
+    body.classList.add("light-mode");
+    if (btn) btn.innerHTML = "Dunkler Modus 🌙";
+  } else {
+    body.classList.remove("light-mode");
+    if (btn) btn.innerHTML = "Heller Modus ☀️";
+  }
 }
 
 // Float rounding utility to avoid JavaScript precision issues (e.g. 0.1 + 0.2 = 0.300000004)
